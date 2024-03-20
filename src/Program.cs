@@ -4,41 +4,72 @@ namespace FunctionChallenges
 {
     class Program
     {
+        public static void GuessingGame()
+        {
+            Random random = new Random();
+            int randomNum = random.Next(1, 100);
+            Console.WriteLine($"{randomNum}");
+            do
+            {
+                try
+                {
+                    Console.WriteLine($"Choose a number between 0 and 100: (To quit, enter Quit)");
+                    string input = Console.ReadLine() ?? "";
+                    if (input.ToLower() == "quit")
+                    {
+                        return;
+                    }
+                    if (Convert.ToInt32(input) != randomNum)
+                    {
+                        Console.WriteLine($"Try again!\n");
+                        continue;
+                    }
+                    Console.WriteLine($"Yes you got it!\nEnd of the game.");
+                    return;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input. Please enter an integer number between 0 and 100\n");
+                }
+            } while (true);
+        }
         static void Main(string[] args)
         {
-            // Challenge 1: String and Number Processor
-            Console.WriteLine("Challenge 1: String and Number Processor");
-            StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
+            // // Challenge 1: String and Number Processor
+            // Console.WriteLine("Challenge 1: String and Number Processor");
+            // StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
 
-            // Challenge 2: Object Swapper
-            Console.WriteLine("\nChallenge 2: Object Swapper");
-            int num1 = 25, num2 = 30;
-            int num 3 = 10, num4 = 30;
-            string str1 = "HelloWorld", str2 = "Programming";
-            string str3 = "Hi", str4 = "Programming";
-                          
-            SwapObjects(ref num1, ref num2); // Expected outcome: num1 = 30, num2 = 25  
-            SwapObjects(ref num3, ref num4); // Error: Value must be more than 18
 
-            SwapObjects(str1, str2); // Expected outcome: str1 = "Programming", str2 = "HelloWorld"
-            SwapObjects(str3, str4); // Error: Length must be more than 5
+            // // Challenge 2: Object Swapper
+            // Console.WriteLine("\nChallenge 2: Object Swapper");
+            // int num1 = 25, num2 = 30;
+            // int num 3 = 10, num4 = 30;
+            // string str1 = "HelloWorld", str2 = "Programming";
+            // string str3 = "Hi", str4 = "Programming";
 
-            SwapObjects(true, false); // Error: Upsupported data type
-            SwapObjects(ref num1, str1); // Error: Objects must be of same types
+            // SwapObjects(ref num1, ref num2); // Expected outcome: num1 = 30, num2 = 25  
+            // SwapObjects(ref num3, ref num4); // Error: Value must be more than 18
 
-            Console.WriteLine($"Numbers: {num1}, {num2}");
-            Console.WriteLine($"Strings: {str1}, {str2}");
+            // SwapObjects(str1, str2); // Expected outcome: str1 = "Programming", str2 = "HelloWorld"
+            // SwapObjects(str3, str4); // Error: Length must be more than 5
+
+            // SwapObjects(true, false); // Error: Upsupported data type
+            // SwapObjects(ref num1, str1); // Error: Objects must be of same types
+
+            // Console.WriteLine($"Numbers: {num1}, {num2}");
+            // Console.WriteLine($"Strings: {str1}, {str2}");
+
 
             // Challenge 3: Guessing Game
             Console.WriteLine("\nChallenge 3: Guessing Game");
-            // Uncomment to test the GuessingGame method
-            // GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
+            GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
 
-            // Challenge 4: Simple Word Reversal
-            Console.WriteLine("\nChallenge 4: Simple Word Reversal");
-            string sentence = "This is the original sentence!";
-            string reversed = ReverseWords(sentence);
-            Console.WriteLine(reversed); // Expected outcome: "sihT si eht lanigiro !ecnetnes"
+
+            // // Challenge 4: Simple Word Reversal
+            // Console.WriteLine("\nChallenge 4: Simple Word Reversal");
+            // string sentence = "This is the original sentence!";
+            // string reversed = ReverseWords(sentence);
+            // Console.WriteLine(reversed); // Expected outcome: "sihT si eht lanigiro !ecnetnes"
         }
     }
 }
