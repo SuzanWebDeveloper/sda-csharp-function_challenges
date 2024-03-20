@@ -14,14 +14,14 @@ namespace FunctionChallenges
             {
                 switch (value)
                 {
-                    case int:
-                        sum += (int)value;
+                    case int valueInt:
+                        sum += valueInt;
                         break;
-                    case double:
-                        sum += Convert.ToDouble(value);
+                    case double valueDouble:
+                        sum += valueDouble;
                         break;
-                    case string:
-                        concatenate += value + " ";
+                    case string valueString:
+                        concatenate += valueString + " ";
                         break;
                     default:
                         Console.WriteLine("Unknown type");
