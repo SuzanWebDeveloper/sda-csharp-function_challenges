@@ -4,11 +4,35 @@ namespace FunctionChallenges
 {
     class Program
     {
+
+
+        // Challenge 1: String and Number Processor
+        public static void StringNumberProcessor(object param1, object param2, object param3, object param4)
+        {
+            object[] values = { param1, param2, param3, param4 };
+            double sum = 0;
+            string concatenate = "";
+            foreach (object value in values)
+            {
+                if (value.GetType() == typeof(int) || value.GetType() == typeof(double))
+                {
+                    sum += Convert.ToDouble(value);
+                }
+                if (value.GetType() == typeof(string))
+                {
+                    concatenate += (string)value + " ";
+                }
+            }
+            Console.WriteLine($"\"{concatenate}; {sum}\"");
+        }
+
+
+        // Challenge 3: Guessing Game
         public static void GuessingGame()
         {
             Random random = new Random();
             int randomNum = random.Next(1, 100);
-            Console.WriteLine($"{randomNum}");
+            //Console.WriteLine($"{randomNum}");
             do
             {
                 try
@@ -29,15 +53,23 @@ namespace FunctionChallenges
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Invalid input. Please enter an integer number between 0 and 100\n");
+                    Console.WriteLine("Invalid input. Please enter an integer number between 0 and 100.500\n");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"{e.Message}");
                 }
             } while (true);
         }
+
+
         static void Main(string[] args)
         {
-            // // Challenge 1: String and Number Processor
-            // Console.WriteLine("Challenge 1: String and Number Processor");
-            // StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
+            // Challenge 1: String and Number Processor
+            Console.WriteLine("\n*****************************************");
+            Console.WriteLine("Challenge 1: String and Number Processor");
+            Console.WriteLine("*****************************************");
+            StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
 
 
             // // Challenge 2: Object Swapper
@@ -61,7 +93,9 @@ namespace FunctionChallenges
 
 
             // Challenge 3: Guessing Game
-            Console.WriteLine("\nChallenge 3: Guessing Game");
+            Console.WriteLine("\n*****************************************");
+            Console.WriteLine("Challenge 3: Guessing Game");
+            Console.WriteLine("*****************************************");
             GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
 
 
