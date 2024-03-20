@@ -12,13 +12,20 @@ namespace FunctionChallenges
             string concatenate = "";
             foreach (object value in values)
             {
-                if (value.GetType() == typeof(int) || value.GetType() == typeof(double))
+                switch (value)
                 {
-                    sum += Convert.ToDouble(value);
-                }
-                if (value.GetType() == typeof(string))
-                {
-                    concatenate += (string)value + " ";
+                    case int:
+                        sum += (int)value;
+                        break;
+                    case double:
+                        sum += Convert.ToDouble(value);
+                        break;
+                    case string:
+                        concatenate += value + " ";
+                        break;
+                    default:
+                        Console.WriteLine("Unknown type");
+                        break;
                 }
             }
             Console.WriteLine($"\"{concatenate}; {sum}\"");
