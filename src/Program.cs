@@ -4,8 +4,6 @@ namespace FunctionChallenges
 {
     class Program
     {
-
-
         // Challenge 1: String and Number Processor
         public static void StringNumberProcessor(object param1, object param2, object param3, object param4)
         {
@@ -53,7 +51,7 @@ namespace FunctionChallenges
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Invalid input. Please enter an integer number between 0 and 100.500\n");
+                    Console.WriteLine("Invalid input. Please enter an integer number between 0 and 100.\n");
                 }
                 catch (Exception e)
                 {
