@@ -5,9 +5,8 @@ namespace FunctionChallenges
     class Program
     {
         // Challenge 1: String and Number Processor
-        public static void StringNumberProcessor(object param1, object param2, object param3, object param4)
+        public static void StringNumberProcessor(params object[] values)
         {
-            object[] values = { param1, param2, param3, param4 };
             double sum = 0;
             string concatenate = "";
             foreach (object value in values)
@@ -45,9 +44,7 @@ namespace FunctionChallenges
                     Console.WriteLine($"Choose a number between 0 and 100: (To quit, enter Quit)");
                     string input = Console.ReadLine() ?? "";
                     if (input.ToLower() == "quit")
-                    {
                         return;
-                    }
                     if (Convert.ToInt32(input) != randomNum)
                     {
                         Console.WriteLine($"Try again!\n");
