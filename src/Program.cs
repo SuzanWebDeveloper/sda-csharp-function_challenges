@@ -1,10 +1,12 @@
 using System;
+using System.Runtime.CompilerServices;
+using Microsoft.Win32.SafeHandles;
 
 namespace FunctionChallenges
 {
     class Program
     {
-        // Challenge 1: String and Number Processor
+        // Challenge 1: String and Number Processor -------------------
         public static void StringNumberProcessor(params object[] values)
         {
             double sum = 0;
@@ -31,7 +33,7 @@ namespace FunctionChallenges
         }
 
 
-        // Challenge 3: Guessing Game
+        // Challenge 3: Guessing Game ---------------------------------
         public static void GuessingGame()
         {
             Random random = new Random();
@@ -41,11 +43,14 @@ namespace FunctionChallenges
             {
                 try
                 {
-                    Console.WriteLine($"Choose a number between 0 and 100: (To quit, enter Quit)");
+                    Console.WriteLine($"Choose a number between 0 and 100: (To exit, enter Quit)");
                     string input = Console.ReadLine() ?? "";
                     if (input.ToLower() == "quit")
                         return;
-                    if (Convert.ToInt32(input) != randomNum)
+                    int num = Convert.ToInt32(input);
+                    if (num < 0 || num > 100)
+                        throw new ArgumentOutOfRangeException();
+                    if (num != randomNum)
                     {
                         Console.WriteLine($"Try again!\n");
                         continue;
@@ -57,11 +62,28 @@ namespace FunctionChallenges
                 {
                     Console.WriteLine("Invalid input. Please enter an integer number between 0 and 100.\n");
                 }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("Number must be between 0 and 100.\n");
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine($"{e.Message}");
                 }
             } while (true);
+        }
+
+        // Challenge 4: Simple Word Reversal --------------------------
+        public static string ReverseWords(string sentence)
+        {
+            string sentenceReversed = "";
+            string[] words = sentence.Split(" ");
+            foreach (string word in words)
+            {
+                string wordRv = new string(word.Reverse().ToArray());
+                sentenceReversed += wordRv + " ";
+            }
+            return sentenceReversed;
         }
 
 
@@ -98,14 +120,17 @@ namespace FunctionChallenges
             Console.WriteLine("\n*****************************************");
             Console.WriteLine("Challenge 3: Guessing Game");
             Console.WriteLine("*****************************************");
-            GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
+            //  GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
 
 
-            // // Challenge 4: Simple Word Reversal
-            // Console.WriteLine("\nChallenge 4: Simple Word Reversal");
-            // string sentence = "This is the original sentence!";
-            // string reversed = ReverseWords(sentence);
-            // Console.WriteLine(reversed); // Expected outcome: "sihT si eht lanigiro !ecnetnes"
+            // Challenge 4: Simple Word Reversal
+            Console.WriteLine("\n*****************************************");
+            Console.WriteLine("Challenge 4: Simple Word Reversal");
+            Console.WriteLine("*****************************************");
+            string sentence = "This is the original sentence!";
+            Console.WriteLine(sentence);
+            string reversed = ReverseWords(sentence);
+            Console.WriteLine($"Reversed: {reversed}\n"); // Expected outcome: "sihT si eht lanigiro !ecnetnes"
         }
     }
 }
