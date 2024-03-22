@@ -31,81 +31,84 @@ namespace FunctionChallenges
         }
 
         // Challenge 2: Object Swapper --------------------------------
-        // SwapObjects by ref
-        public static void SwapObjects<T>(ref T x, ref T y)
+
+        // NOTE: I used overloading method because for passing ref arguments the method parameters have to be ref otherwise I get an error.
+
+        // SwapObjects param as ref
+        public static void SwapObjects<T>(ref T obj1, ref T obj2)
         {
-            if (x is string && y is string)
+            // different types
+            if (!((obj1 is string && obj2 is string) || (obj1 is int && obj2 is int)))
+                Console.WriteLine($"Error: Objects must be of same types\n");
+
+            // same type string
+            if (obj1 is string && obj2 is string)
             {
-                if (x.ToString()?.Length > 5 && y.ToString()?.Length > 5)
-                {
-                    T temp = x;
-                    x = y;
-                    y = temp;
-                }
+                if (obj1.ToString()?.Length > 5 && obj2.ToString()?.Length > 5)
+                    (obj1, obj2) = (obj2, obj1); //tuple swap two values
+
                 else
-                {
-                    Console.WriteLine($"error");
-                    //error
-                }
+                    Console.WriteLine($"Error: Length must be more than 5\n");
             }
 
-            if (x is int && y is int)
+            // same type int
+            if (obj1 is int && obj2 is int)
             {
-                int num1 = Convert.ToInt32(x);
-                int num2 = Convert.ToInt32(y);
-                Console.WriteLine($"Inputs: num1 = {x}, num2= {y}");
+                int num1 = Convert.ToInt32(obj1);
+                int num2 = Convert.ToInt32(obj2);
+                Console.WriteLine($"Inputs: num1 = {obj1}, num2= {obj2}");
                 if (num1 > 18 && num2 > 18)
                 {
-                    T temp = x;
-                    x = y;
-                    y = temp;
-                    Console.WriteLine($"Result: num1 = {x}, num2= {y}\n");
+                    (obj1, obj2) = (obj2, obj1); //tuple swap two values
+                    Console.WriteLine($"Result: num1 = {obj1}, num2= {obj2}\n");
                 }
                 else
-                {
                     Console.WriteLine($"Error: Value must be more than 18\n");
-                }
             }
         }
-        // SwapObjects by object
+
+        // SwapObjects param as object
         public static void SwapObjects(object obj1, object obj2)
         {
+            //unsupported type
             if (obj1 is bool || obj2 is bool)
             {
                 Console.WriteLine($"Inputs: {obj1}, {obj2}");
                 Console.WriteLine("Error: Unsupported type\n");
+                return;
             }
 
+            // different types
+            if (!((obj1 is string && obj2 is string) || (obj1 is int && obj2 is int)))
+            {
+                Console.WriteLine($"Inputs: {obj1}, {obj2}");
+                Console.WriteLine($"Error: Objects must be of same types\n");
+            }
+
+            // same type string
             if (obj1 is string && obj2 is string)
             {
                 Console.WriteLine($"Inputs: str1 = {obj1}, str2 = {obj2}");
                 if (obj1.ToString()?.Length > 5 && obj2.ToString()?.Length > 5)
                 {
-                    object temp = obj1;
-                    obj1 = obj2;
-                    obj2 = temp;
+                    (obj1, obj2) = (obj2, obj1); //tuple swap two values
                     Console.WriteLine($"Result: str1 = {obj1}, str2 = {obj2}\n");
                 }
                 else
-                {
                     Console.WriteLine($"Error: Length must be more than 5\n");
-                }
             }
 
+            // same type int
             if ((obj1 is int && obj2 is int) || (obj1 is double && obj2 is double))
             {
                 Console.WriteLine($"Inputs: num1 = {obj1}, num2 = {obj2}");
                 if ((double)obj1 > 18 && (double)obj2 > 18)
                 {
-                    object temp = obj2;
-                    obj1 = obj2;
-                    obj2 = temp;
+                    (obj1, obj2) = (obj2, obj1); //tuple swap two values
                     Console.WriteLine($"Result: num1 = {obj1}, num2 = {obj2}\n");
                 }
                 else
-                {
                     Console.WriteLine($"Error: Value must be more than 18\n");
-                }
             }
         }
 
@@ -114,7 +117,7 @@ namespace FunctionChallenges
         {
             Random random = new Random();
             int randomNum = random.Next(1, 100);
-            //Console.WriteLine($"{randomNum}"); //show the random number
+            Console.WriteLine($"(random num= {randomNum})"); //show the random number
             do
             {
                 try
@@ -154,7 +157,7 @@ namespace FunctionChallenges
         {
             string sentenceReversed = "";
             if (string.IsNullOrWhiteSpace(sentence))
-                throw new ArgumentNullException(null, "No word or sentence was entered.");
+                throw new ArgumentNullException(null, "No word or sentence was entered."); //paramName null to show my message only
 
             if (double.TryParse(sentence, out _))
                 throw new FormatException("Invalid input. Please enter a word or a sentence.");
@@ -169,34 +172,37 @@ namespace FunctionChallenges
 
         static void Main(string[] args)
         {
-            // // Challenge 1: String and Number Processor
-            // Console.WriteLine("\n*****************************************");
-            // Console.WriteLine("Challenge 1: String and Number Processor");
-            // Console.WriteLine("*****************************************");
-            // StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
+            // Challenge 1: String and Number Processor
+            Console.WriteLine("\n*****************************************");
+            Console.WriteLine("Challenge 1: String and Number Processor");
+            Console.WriteLine("*****************************************");
+            StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
             //----------------------------------------------------------
 
-            // // Challenge 2: Object Swapper
-            // Console.WriteLine("\n*****************************************");
-            // Console.WriteLine("Challenge 2: Object Swapper");
-            // Console.WriteLine("*****************************************");
-            // int num1 = 25, num2 = 30;
-            // int num3 = 10, num4 = 30;
-            // string str1 = "HelloWorld", str2 = "Programming";
-            // string str3 = "Hi", str4 = "Programming";
+            // Challenge 2: Object Swapper
+            Console.WriteLine("\n*****************************************");
+            Console.WriteLine("Challenge 2: Object Swapper");
+            Console.WriteLine("*****************************************");
+            int num1 = 25, num2 = 30;
+            int num3 = 10, num4 = 30;
+            string str1 = "HelloWorld", str2 = "Programming";
+            string str3 = "Hi", str4 = "Programming";
 
-            // SwapObjects(ref num1, ref num2); // Expected outcome: num1 = 30, num2 = 25  
-            // SwapObjects(ref num3, ref num4); // Error: Value must be more than 18
+            int value1 = 10; string value2 = "Programming";
 
-            // SwapObjects(str1, str2); // Expected outcome: str1 = "Programming", str2 = "HelloWorld"
-            // SwapObjects(str3, str4); // Error: Length must be more than 5
+            SwapObjects(ref num1, ref num2); // Expected outcome: num1 = 30, num2 = 25  
+            SwapObjects(ref num3, ref num4); // Error: Value must be more than 18
+            SwapObjects(str1, str2); // Expected outcome: str1 = "Programming", str2 = "HelloWorld"
+            SwapObjects(str3, str4); // Error: Length must be more than 5
 
-            // SwapObjects(true, false); // Error: Upsupported data type
-            // //SwapObjects(ref num1, str1); // Error: Objects must be of same types
+            SwapObjects(value1, value2); // Error: Objects must be of same types
 
-            // Console.WriteLine($"Numbers: {num1}, {num2}");
-            // Console.WriteLine($"Numbers: {num3}, {num4}");
-            // Console.WriteLine($"Strings: {str1}, {str2}");
+            SwapObjects(true, false); // Error: Upsupported data type
+            //SwapObjects(ref num1, str1); // Error: Objects must be of same types
+
+            Console.WriteLine($"Numbers: {num1}, {num2}");
+            Console.WriteLine($"Numbers: {num3}, {num4}");
+            Console.WriteLine($"Strings: {str1}, {str2}");
             //----------------------------------------------------------
 
             // Challenge 3: Guessing Game
