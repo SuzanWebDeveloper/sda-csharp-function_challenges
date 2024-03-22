@@ -47,8 +47,8 @@ namespace FunctionChallenges
                     Console.WriteLine($"error");
                     //error
                 }
-
             }
+
             if (x is int && y is int)
             {
                 int num1 = Convert.ToInt32(x);
@@ -65,9 +65,7 @@ namespace FunctionChallenges
                 {
                     Console.WriteLine($"Error: Value must be more than 18\n");
                 }
-
             }
-
         }
         // SwapObjects by object
         public static void SwapObjects(object obj1, object obj2)
@@ -116,7 +114,7 @@ namespace FunctionChallenges
         {
             Random random = new Random();
             int randomNum = random.Next(1, 100);
-            //Console.WriteLine($"{randomNum}");
+            //Console.WriteLine($"{randomNum}"); //show the random number
             do
             {
                 try
@@ -155,63 +153,80 @@ namespace FunctionChallenges
         public static string ReverseWords(string sentence)
         {
             string sentenceReversed = "";
+            if (string.IsNullOrWhiteSpace(sentence))
+                throw new ArgumentNullException(null, "No word or sentence was entered.");
+
+            if (double.TryParse(sentence, out _))
+                throw new FormatException("Invalid input. Please enter a word or a sentence.");
+
             string[] words = sentence.Split(" ");
             foreach (string word in words)
-            {
-                string wordRv = new string(word.Reverse().ToArray());
-                sentenceReversed += wordRv + " ";
-            }
+                sentenceReversed += new string(word.Reverse().ToArray()) + " ";
+
             return sentenceReversed;
         }
 
 
         static void Main(string[] args)
         {
-            // Challenge 1: String and Number Processor
-            Console.WriteLine("\n*****************************************");
-            Console.WriteLine("Challenge 1: String and Number Processor");
-            Console.WriteLine("*****************************************");
-            StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
+            // // Challenge 1: String and Number Processor
+            // Console.WriteLine("\n*****************************************");
+            // Console.WriteLine("Challenge 1: String and Number Processor");
+            // Console.WriteLine("*****************************************");
+            // StringNumberProcessor("Hello", 100, 200, "World"); // Expected outcome: "Hello World; 300"
+            //----------------------------------------------------------
 
+            // // Challenge 2: Object Swapper
+            // Console.WriteLine("\n*****************************************");
+            // Console.WriteLine("Challenge 2: Object Swapper");
+            // Console.WriteLine("*****************************************");
+            // int num1 = 25, num2 = 30;
+            // int num3 = 10, num4 = 30;
+            // string str1 = "HelloWorld", str2 = "Programming";
+            // string str3 = "Hi", str4 = "Programming";
 
-            // Challenge 2: Object Swapper
-            Console.WriteLine("\n*****************************************");
-            Console.WriteLine("Challenge 2: Object Swapper");
-            Console.WriteLine("*****************************************");
-            int num1 = 25, num2 = 30;
-            int num3 = 10, num4 = 30;
-            string str1 = "HelloWorld", str2 = "Programming";
-            string str3 = "Hi", str4 = "Programming";
+            // SwapObjects(ref num1, ref num2); // Expected outcome: num1 = 30, num2 = 25  
+            // SwapObjects(ref num3, ref num4); // Error: Value must be more than 18
 
-            SwapObjects(ref num1, ref num2); // Expected outcome: num1 = 30, num2 = 25  
-            SwapObjects(ref num3, ref num4); // Error: Value must be more than 18
+            // SwapObjects(str1, str2); // Expected outcome: str1 = "Programming", str2 = "HelloWorld"
+            // SwapObjects(str3, str4); // Error: Length must be more than 5
 
-            SwapObjects(str1, str2); // Expected outcome: str1 = "Programming", str2 = "HelloWorld"
-            SwapObjects(str3, str4); // Error: Length must be more than 5
+            // SwapObjects(true, false); // Error: Upsupported data type
+            // //SwapObjects(ref num1, str1); // Error: Objects must be of same types
 
-            SwapObjects(true, false); // Error: Upsupported data type
-            //SwapObjects(ref num1, str1); // Error: Objects must be of same types
-
-            Console.WriteLine($"Numbers: {num1}, {num2}");
-            Console.WriteLine($"Numbers: {num3}, {num4}");
-            Console.WriteLine($"Strings: {str1}, {str2}");
-
+            // Console.WriteLine($"Numbers: {num1}, {num2}");
+            // Console.WriteLine($"Numbers: {num3}, {num4}");
+            // Console.WriteLine($"Strings: {str1}, {str2}");
+            //----------------------------------------------------------
 
             // Challenge 3: Guessing Game
             Console.WriteLine("\n*****************************************");
             Console.WriteLine("Challenge 3: Guessing Game");
             Console.WriteLine("*****************************************");
-            //  GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
-
+            GuessingGame(); // Expected outcome: User input until the correct number is guessed or user inputs `Quit`
+            //----------------------------------------------------------
 
             // Challenge 4: Simple Word Reversal
             Console.WriteLine("\n*****************************************");
             Console.WriteLine("Challenge 4: Simple Word Reversal");
             Console.WriteLine("*****************************************");
-            string sentence = "This is the original sentence!";
-            Console.WriteLine(sentence);
-            string reversed = ReverseWords(sentence);
-            Console.WriteLine($"Reversed: {reversed}\n"); // Expected outcome: "sihT si eht lanigiro !ecnetnes"
+            try
+            {
+                string sentence = "This is the original sentence!";
+                //string sentence = "5";
+                //string sentence = "";
+                Console.WriteLine($"Input: {sentence}");
+                string reversed = ReverseWords(sentence);
+                Console.WriteLine($"Reversed: {reversed}\n"); // Expected outcome: "sihT si eht lanigiro !ecnetnes"
+            }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine($"{e.Message}\n");
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine($"{e.Message}\n");
+            }
         }
     }
 }
